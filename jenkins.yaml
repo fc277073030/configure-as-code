@@ -1,0 +1,164 @@
+jenkins:
+  securityRealm:
+    ldap:
+      configurations:
+        - groupMembershipStrategy:
+            fromUserRecord:
+              attributeName: "memberOf"
+          inhibitInferRootDN: false
+          rootDN: "dc=acme,dc=org"
+          server: "ldaps://ldap.acme.org:1636"
+          
+  agentProtocols:
+  - "JNLP4-connect"
+  - "Ping"
+  authorizationStrategy:
+    loggedInUsersCanDoAnything:
+      allowAnonymousRead: false
+  clouds:
+  - kubernetes:
+      containerCapStr: "0"
+      jenkinsTunnel: "jenkins-agent:50000"
+      jenkinsUrl: "http://jenkins:8080"
+      maxRequestsPerHostStr: "32"
+      name: "kubernetes"
+      namespace: "jx"
+      serverUrl: "https://kubernetes.default"
+      templates: "FAILED TO EXPORT org.csanchez.jenkins.plugins.kubernetes.KubernetesCloud#templates:\
+        \ java.lang.NullPointerException  at org.csanchez.jenkins.plugins.kubernetes.PodTemplate.getYaml(PodTemplate.java:622)\n\
+        Caused: java.lang.reflect.InvocationTargetException  at sun.reflect.GeneratedMethodAccessor232.invoke(Unknown\
+        \ Source)  at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\
+        \  at java.lang.reflect.Method.invoke(Method.java:498)  at io.jenkins.plugins.casc.Attribute._getValue(Attribute.java:244)\n\
+        Caused: io.jenkins.plugins.casc.ConfiguratorException: Can't read attribute\
+        \ 'yaml' from PodTemplate{, nodeUsageMode=EXCLUSIVE}  at io.jenkins.plugins.casc.Attribute._getValue(Attribute.java:262)\
+        \  at io.jenkins.plugins.casc.Attribute.getValue(Attribute.java:175)  at io.jenkins.plugins.casc.Attribute.equals(Attribute.java:207)\
+        \  at io.jenkins.plugins.casc.BaseConfigurator.compare(BaseConfigurator.java:384)\
+        \  at io.jenkins.plugins.casc.impl.configurators.DataBoundConfigurator.describe(DataBoundConfigurator.java:249)\
+        \  at io.jenkins.plugins.casc.Attribute.describe(Attribute.java:193)  at io.jenkins.plugins.casc.BaseConfigurator.compare(BaseConfigurator.java:385)\
+        \  at io.jenkins.plugins.casc.impl.configurators.DataBoundConfigurator.describe(DataBoundConfigurator.java:249)\
+        \  at io.jenkins.plugins.casc.impl.configurators.HeteroDescribableConfigurator.lambda$convertToNode$de0cd4f8$1(HeteroDescribableConfigurator.java:233)\
+        \  at io.vavr.CheckedFunction0.lambda$unchecked$52349c75$1(CheckedFunction0.java:201)\
+        \  at io.jenkins.plugins.casc.impl.configurators.HeteroDescribableConfigurator.convertToNode(HeteroDescribableConfigurator.java:233)\
+        \  at io.jenkins.plugins.casc.impl.configurators.HeteroDescribableConfigurator.lambda$describe$5(HeteroDescribableConfigurator.java:103)\
+        \  at io.vavr.control.Option.map(Option.java:373)  at io.jenkins.plugins.casc.impl.configurators.HeteroDescribableConfigurator.describe(HeteroDescribableConfigurator.java:103)\
+        \  at io.jenkins.plugins.casc.impl.configurators.HeteroDescribableConfigurator.describe(HeteroDescribableConfigurator.java:51)\
+        \  at io.jenkins.plugins.casc.Attribute.describe(Attribute.java:193)  at io.jenkins.plugins.casc.Configurator.describe(Configurator.java:162)"
+  disableRememberMe: false
+  globalNodeProperties:
+  - envVars:
+      env:
+      - key: "DOCKER_REGISTRY"
+        value: "registry-vpc.cn-hangzhou.aliyuncs.com"
+      - key: "TILLER_NAMESPACE"
+        value: "kube-system"
+  markupFormatter: "plainText"
+  mode: NORMAL
+  myViewsTabBar: "standard"
+  numExecutors: 0
+  primaryView:
+    all:
+      name: "all"
+  projectNamingStrategy: "standard"
+  quietPeriod: 5
+  remotingSecurity:
+    enabled: true
+  scmCheckoutRetryCount: 0
+  securityRealm: "legacy"
+  slaveAgentPort: 50000
+  updateCenter:
+    sites:
+    - id: "default"
+      url: "https://updates.jenkins.io/update-center.json"
+  views:
+  - all:
+      name: "all"
+  viewsTabBar: "standard"
+security:
+  apiToken:
+    creationOfLegacyTokenEnabled: false
+    tokenGenerationOnCreationEnabled: false
+    usageStatisticsEnabled: true
+  downloadSettings:
+    useBrowser: false
+  remotingCLI:
+    enabled: true
+  sSHD:
+    port: -1
+unclassified:
+  artifactoryBuilder:
+    useCredentialsPlugin: false
+  badgePlugin:
+    disableFormatHTML: false
+  bitbucketEndpointConfiguration:
+    endpoints:
+    - bitbucketCloudEndpoint:
+        enableCache: false
+        manageHooks: false
+        repositoriesCacheDuration: 0
+        teamCacheDuration: 0
+  contentFilters:
+    enabled: false
+  gitHubPluginConfig:
+    hookUrl: "http://jenkins.jx.oifipaas.com/github-webhook/"
+  gitLabConnectionConfig:
+    connections:
+    - clientBuilderId: "autodetect"
+      connectionTimeout: 10
+      ignoreCertificateErrors: false
+      readTimeout: 10
+  gitSCM:
+    createAccountBasedOnEmail: false
+  globalPluginConfiguration:
+    enabled: true
+    namespace: "jx"
+  ivyBuildTrigger:
+    extendedVersionMatching: false
+  location:
+    adminAddress: "没有配置邮箱地址 <nobody@nowhere>"
+    url: "http://jenkins.jx.oifipaas.com/"
+  mailer:
+    adminAddress: "没有配置邮箱地址 <nobody@nowhere>"
+    charset: "UTF-8"
+    useSsl: false
+  mavenModuleSet:
+    localRepository: "default"
+  pollSCM:
+    pollingThreadCount: 10
+  sonarGlobalConfiguration:
+    buildWrapperEnabled: false
+tool:
+  ant:
+    defaultProperties:
+    - installSource:
+        installers:
+        - "antFromApache"
+  git:
+    installations:
+    - home: "git"
+      name: "Default"
+  gradle:
+    defaultProperties:
+    - installSource:
+        installers:
+        - "gradleInstaller"
+  jdk:
+    defaultProperties:
+    - installSource:
+        installers:
+        - jdkInstaller:
+            acceptLicense: false
+  maven:
+    defaultProperties:
+    - installSource:
+        installers:
+        - "maven"
+  msBuildSQRunnerInstallation:
+    defaultProperties:
+    - installSource:
+        installers:
+        - "msBuildSonarQubeRunnerInstaller"
+  sonarRunnerInstallation:
+    defaultProperties:
+    - installSource:
+        installers:
+        - "sonarRunnerInstaller"

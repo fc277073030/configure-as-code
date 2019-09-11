@@ -1,2 +1,20 @@
 jenkins:
   systemMessage: "fanchao welcome to here, and go on"
+  securityRealm:
+    ldap:
+      configurations:
+      - groupMembershipStrategy:
+          fromGroupSearch:
+            filter: "(| (member={0}) (uniqueMember={0}) (memberUid={1}))"
+        groupSearchBase: "ou=Groups"
+        groupSearchFilter: "(& (cn={0}) (objectClass=groupOfNames) )"
+        inhibitInferRootDN: false
+        managerDN: "cn=admin,dc=xiamen-office,dc=soundnet,dc=com,dc=cn"
+        managerPasswordSecret: "sound318"
+        rootDN: "dc=xiamen-office,dc=soundnet,dc=com,dc=cn"
+        server: "ldap://ldap.oifitech.com"
+        userSearchBase: "ou=People"
+      disableMailAddressResolver: false
+      disableRolePrefixing: true
+      groupIdStrategy: "caseInsensitive"
+      userIdStrategy: "caseInsensitive"
